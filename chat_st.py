@@ -7,7 +7,7 @@ import streamlit as st
 from chat_retrieval import chat_agent, tools
 
 def run_chat_interface():
-    st.header("Policy Chat App")
+    st.header("Education Federal Student Aid Assistant App")
 
     with st.sidebar:
         msgs = StreamlitChatMessageHistory()
