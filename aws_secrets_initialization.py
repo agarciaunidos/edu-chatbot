@@ -10,11 +10,7 @@ import streamlit as st
 aws_access_key_id = st.secrets["aws_credentials"]["AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = st.secrets["aws_credentials"]["AWS_SECRET_ACCESS_KEY"]
 
-# Use the credentials to create an AWS session
-session = boto3.Session(
-    aws_access_key_id=aws_access_key_id,
-    aws_secret_access_key=aws_secret_access_key
-)
+
 
 # Constants for configuration
 REGION_NAME = 'us-east-1'
@@ -26,9 +22,15 @@ SESSION_TABLE_NAME = "SessionTable"
 SESSION_ID = "99"
 FUNCTION_NAME = 'policy-app-prompt-pinecone'
 
+# Use the credentials to create an AWS session
+aws_session = boto3.Session(
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key
+    region_name =REGION_NAME
+)
 
 # Setup AWS boto3 session and clients
-aws_session = boto3.session.Session(region_name=REGION_NAME)
+#aws_session = boto3.session.Session(region_name=REGION_NAME)
 secrets_manager_client = aws_session.client(service_name='secretsmanager')
 bedrock_client = boto3.client("bedrock-runtime", region_name=REGION_NAME_BEDROCK)
 lambda_client = boto3.client('lambda', region_name=REGION_NAME) 
