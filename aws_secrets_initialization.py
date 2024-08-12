@@ -31,7 +31,7 @@ aws_session = boto3.Session(
 
 # Setup AWS boto3 session and clients
 #aws_session = boto3.session.Session(region_name=REGION_NAME)
-secrets_manager_client = aws_session.client(service_name='secretsmanager', boto3_session = aws_session)
+secrets_manager_client = aws_session.client(service_name='secretsmanager')
 bedrock_client = boto3.client("bedrock-runtime", region_name=REGION_NAME_BEDROCK,boto3_session = aws_session)
 lambda_client = boto3.client('lambda', region_name=REGION_NAME, boto3_session = aws_session) 
 
