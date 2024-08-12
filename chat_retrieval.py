@@ -29,7 +29,7 @@ def retrieve_documents(query):
     """
     vector_store = initialize_vector_store(INDEX_NAME)
     retriever = vector_store.as_retriever(search_kwargs={'k': 100})
-    compressor = CohereRerank(top_n=20, cohere_api_key=COHERE_API_KEY)
+    compressor = CohereRerank(top_n=20, model = 'rerank-english-v2.0', cohere_api_key=COHERE_API_KEY)
     compression_retriever = ContextualCompressionRetriever(base_compressor=compressor, base_retriever=retriever)
     documents = compression_retriever.invoke(query)
     return documents
