@@ -43,6 +43,6 @@ knowledge_base_tool = Tool(
 
 # Chat agent configuration and initialization
 tools = [knowledge_base_tool]
-chat_prompt = hub.pull("react-chat-json")
+chat_prompt = hub.pull("react-chat-json:a61650ca")
 #chat_prompt = hub.pull("hwchase17/react-chat-json")
 chat_agent = create_json_chat_agent(llm=llm, tools=tools, prompt=chat_prompt)
