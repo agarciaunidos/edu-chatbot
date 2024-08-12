@@ -25,7 +25,7 @@ FUNCTION_NAME = 'policy-app-prompt-pinecone'
 # Use the credentials to create an AWS session
 aws_session = boto3.Session(
     aws_access_key_id=aws_access_key_id,
-    aws_secret_access_key=aws_secret_access_key
+    aws_secret_access_key=aws_secret_access_key,
     region_name =REGION_NAME
 )
 
