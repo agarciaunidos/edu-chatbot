@@ -1,10 +1,12 @@
 
 import boto3
 import json
+import os
 from langchain.memory import DynamoDBChatMessageHistory
 from langchain_community.embeddings import BedrockEmbeddings
 from langchain_aws import ChatBedrock
 import streamlit as st
+from langsmith import Client
 
 # Constants for configuration
 REGION_NAME = 'us-east-1'
@@ -47,3 +49,11 @@ def fetch_secret_value(secret_name, key):
 PINECONE_API_KEY = fetch_secret_value("edu-app-secrets","PINECONE_API_KEY")
 COHERE_API_KEY = fetch_secret_value("policy-app-secrets","COHERE_API_KEY")
 #ALB_ARN = fetch_secret_value("policy-app-secrets", "ALB_ARN")
+
+
+
+os.environ["LANGCHAIN_TRACING_V2"] =  "true"
+os.environ["LANGCHAIN_ENDPOINT"] ="https://api.smith.langchain.com"
+os.environ["LANGCHAIN_API_KEY"] = fetch_secret_value("edu-app-secrets","LANGCHAIN")
+os.environ["LANGCHAIN_PROJECT"] ="edu-chatbot-test"
+client = Client()
