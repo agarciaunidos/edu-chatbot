@@ -24,7 +24,7 @@ def run_chat_interface():
             render_intermediate_steps(idx, msg, st.session_state.get('steps', {}))
             st.write(msg.content)
 
-    if prompt := st.chat_input(placeholder="What is UnidosUS?"):
+    if prompt := st.chat_input(placeholder="What is the Education Federal Student Aid?"):
         st.chat_message("user").write(prompt)
         response = execute_chat_agent(prompt, memory)
         if response:
