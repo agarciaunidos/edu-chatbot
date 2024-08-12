@@ -16,14 +16,12 @@ MODEL_ID = "anthropic.claude-3-5-sonnet-20240620-v1:0"
 MODEL_ID_OPUS = 'anthropic.claude-3-opus-20240229-v1:0'
 SESSION_TABLE_NAME = "SessionTable"
 SESSION_ID = "99"
-FUNCTION_NAME = 'policy-app-prompt-pinecone'
 
 
 # Setup AWS boto3 session and clients
 aws_session = boto3.Session(region_name=REGION_NAME,    aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"],aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"])
 secrets_manager_client = aws_session.client(service_name='secretsmanager')
 bedrock_client = boto3.client("bedrock-runtime", region_name=REGION_NAME_BEDROCK)
-lambda_client = boto3.client('lambda', region_name=REGION_NAME) 
 
 # Initialize Langchain components
 dynamodb_history = DynamoDBChatMessageHistory(table_name=SESSION_TABLE_NAME, session_id=SESSION_ID, boto3_session=aws_session)
