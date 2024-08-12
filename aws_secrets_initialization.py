@@ -4,6 +4,17 @@ import json
 from langchain.memory import DynamoDBChatMessageHistory
 from langchain_community.embeddings import BedrockEmbeddings
 from langchain_aws import ChatBedrock
+import streamlit as st
+
+# Access the secrets
+aws_access_key_id = st.secrets["aws_credentials"]["AWS_ACCESS_KEY_ID"]
+aws_secret_access_key = st.secrets["aws_credentials"]["AWS_SECRET_ACCESS_KEY"]
+
+# Use the credentials to create an AWS session
+session = boto3.Session(
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key
+)
 
 # Constants for configuration
 REGION_NAME = 'us-east-1'
