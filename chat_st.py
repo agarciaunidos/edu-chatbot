@@ -3,8 +3,22 @@ from langchain.memory import ConversationBufferMemory
 from langchain_community.callbacks import StreamlitCallbackHandler
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory
 import streamlit as st
+import pandas as pd
 
 from chat_retrieval import chat_agent, tools
+
+def format_search_results_as_dataframe(documents):
+    """Converts search results into a pandas DataFrame for display."""
+    results = []
+    for document in documents:
+        metadata = document.metadata
+        title = metadata.get('title', '')
+        page = metadata.get('page', '')
+        source_url = metadata.get('source', '').replace('s3://', 'https://s3.amazonaws.com/')
+        relevance_score = metadata.get('relevance_score', '')
+        porcentaje_relevance_score = relevance_score * 100
+        results.append({"Title": title, "Page": page, "Source": source_url, "Relevance Score" : porcentaje_relevance_score})
+    return pd.DataFrame(results)
 
 def run_chat_interface():
     st.header("Education Federal Student Aid Assistant App")
@@ -59,6 +73,19 @@ def display_chat_response(response, message_history):
     """Displays the chat agent's response and handles any necessary follow-up actions."""
     with st.chat_message("assistant"):
         st.write(response["output"])
+        try:
+            #st.write(response["intermediate_steps"][0][1])
+            sources = response["intermediate_steps"][0][1]
+            df = format_search_results_as_dataframe(sources)
+            st.subheader('Sources:')
+            st.data_editor(df, column_config={"Source": st.column_config.LinkColumn("Source"),
+                                                        "Relevance Score": st.column_config.NumberColumn("Relevance Score", format='%.2f %%')},
+                       hide_index=True)
+            #send_to_method(intermediate_step)
+        except IndexError:
+        # Ignore "list index out of range" error and continue
+            pass
+        
         st.session_state['steps'][str(len(message_history.messages) - 1)] = response["intermediate_steps"]
 
 def main():

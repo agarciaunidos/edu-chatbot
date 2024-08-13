@@ -20,6 +20,7 @@ SESSION_ID = "99"
 
 # Setup AWS boto3 session and clients
 aws_session = boto3.Session(region_name=REGION_NAME,    aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"],aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"])
+#aws_session = boto3.Session(region_name=REGION_NAME)
 secrets_manager_client = aws_session.client(service_name='secretsmanager')
 bedrock_client = boto3.client("bedrock-runtime", region_name=REGION_NAME_BEDROCK)
 
