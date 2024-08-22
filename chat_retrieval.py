@@ -9,7 +9,7 @@ from langchain.agents import create_json_chat_agent
 from langchain import hub
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain_cohere import CohereRerank
-from aws_secrets_initialization import PINECONE_API_KEY, INDEX_NAME,COHERE_API_KEY, embeddings, llm
+from aws_secrets_initialization import PINECONE_API_KEY, INDEX_NAME,COHERE_API_KEY, embeddings, llm, dynamodb_history
 
 # Constants and configuration
 
