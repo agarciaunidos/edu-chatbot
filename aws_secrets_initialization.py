@@ -18,8 +18,8 @@ REGION_NAME_BEDROCK = 'us-east-1'
 INDEX_NAME = 'edu-application-guide-full'
 MODEL_ID = "anthropic.claude-3-5-sonnet-20240620-v1:0"
 MODEL_ID_OPUS = 'anthropic.claude-3-opus-20240229-v1:0'
-SESSION_TABLE_NAME = "SessionTable"
-SESSION_ID = "1234"
+SESSION_TABLE_NAME = "SessionTableEduChatbot"
+SESSION_ID = "Internal-test"
 
 
 # Setup AWS boto3 session and clients
