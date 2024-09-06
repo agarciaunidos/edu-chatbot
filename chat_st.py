@@ -37,13 +37,12 @@ def handle_feedback():
     try:
         timestamp = int(time.time())
         dynamodb_history.add_message(SystemMessage(
-            id='1',
+            id=st.session_state['session_id'],
             user_id='test_user',
             content='feedback',
             st_session_id=st.session_state["session_id"],
             response_metadata={
                 'timestamp': timestamp,
-                'face_feedback': feedback_value,
                 'feedback_text': feedback_text,
                 'score': feedback_value,
             }
