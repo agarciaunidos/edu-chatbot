@@ -2,11 +2,15 @@
 import boto3
 import json
 import os
-from langchain.memory import DynamoDBChatMessageHistory
-from langchain_community.embeddings import BedrockEmbeddings
+#from langchain.memory import DynamoDBChatMessageHistory
+from langchain_community.chat_message_histories import DynamoDBChatMessageHistory
+#from langchain_community.embeddings import BedrockEmbeddings
+from langchain_aws import BedrockEmbeddings
 from langchain_aws import ChatBedrock
 import streamlit as st
 from langsmith import Client
+from uuid import uuid4
+import time
 
 # Constants for configuration
 REGION_NAME = 'us-east-1'
@@ -15,7 +19,7 @@ INDEX_NAME = 'edu-application-guide-full'
 MODEL_ID = "anthropic.claude-3-5-sonnet-20240620-v1:0"
 MODEL_ID_OPUS = 'anthropic.claude-3-opus-20240229-v1:0'
 SESSION_TABLE_NAME = "SessionTable"
-SESSION_ID = "99"
+SESSION_ID = "1234"
 
 
 # Setup AWS boto3 session and clients

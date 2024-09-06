@@ -11,6 +11,7 @@ from langchain.retrievers import ContextualCompressionRetriever
 from langchain_cohere import CohereRerank
 from aws_secrets_initialization import PINECONE_API_KEY, INDEX_NAME,COHERE_API_KEY, embeddings, llm, dynamodb_history
 
+
 # Constants and configuration
 
 def initialize_vector_store(index_name):
@@ -43,6 +44,16 @@ knowledge_base_tool = Tool(
 
 # Chat agent configuration and initialization
 tools = [knowledge_base_tool]
-chat_prompt = hub.pull("react-chat-json:cd7b7fc8")
-#chat_prompt = hub.pull("hwchase17/react-chat-json")
+#chat_prompt = hub.pull("react-chat-json:cd7b7fc8")
+chat_prompt = hub.pull("hwchase17/react-chat-json")
 chat_agent = create_json_chat_agent(llm=llm, tools=tools, prompt=chat_prompt)
+
+'''
+def store_messages_in_dynamodb(conversation_id, messages):
+    try:
+        response = dynamodb_history.add_user_message(HumanMessage(id = conversation_id,content= messages ))
+        return response
+    except SystemError as e:
+        print(f"Error storing messages in DynamoDB: {e.response['Error']['Message']}")
+        return None
+'''
